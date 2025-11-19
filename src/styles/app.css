@@ -1,0 +1,49 @@
+/*body { font-family: Inter, system-ui, Arial; margin: 0; padding: 0; background:#e3e3e6; color:#222 }*/
+.header { background:#0b5cff; color:white; padding:16px 20px ; text-align: center; border-color: black; box-sizing:1.9em;}
+.car-list { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap:16px }
+.car-card { margin:0 50px 0 60px ; background:  rgba(227, 227, 230, 1); border-radius:8px; margin-top:20px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); display:flex; gap:10px; border: 1px groove black }
+.car-img { width:190px; height:90px; object-fit:cover; border-radius:0px ; padding: 55px 0 30px 45px; border: 1px solid black;}
+.car-body  { margin:0 0 6px 0; font-size:17px;  margin:10px 0 0 170px}
+.car-link  { margin:0 0 58px 0; font-size:17px;  margin:0 0 0 170px }
+.butao-link {padding: 6px 6px 6px 6px;margin-bottom: 10px; margin-left: 10px;}
+.div-pos{background-color: black; }
+.div-marca{text-align: center;}
+.filtro-pesq{   width: 660px;height: 50px; text-align: center; border-right: 1px solid black ; margin: 30px 0 0 20px;background:  rgba(227, 227, 230, 1); color: rgb( 54 54 54)0;font-size: 20px}
+.fitro-locais{background:  rgba(227, 227, 230, 1) ;  width: 700px;height: 50px; text-align: center; border-right: 1px solid black ;;margin: 30px 0 0px 0px;font-size: 20px; }
+.butao{width: 100px;height: 58px; background:#363636; border: 1px solid ; color: white ;cursor: pointer;font-size: 20px;margin-left:7px;border-radius: 10px;  }
+.categ-ilha{width: 250px;height: 60px; margin: 0px 10px 20px 300px;border: none;color: rgb( 54 54 54);font-size: 20px;}
+.categ-precoMin {width: 150px;height: 60px;margin-left: 5px;margin-right: 10px;border: none;color: rgb( 54 54 54);font-size: 20px; }
+.categ-precoMax {width: 150px;height: 60px;margin-left: 5px;border: none; color: rgb( 54 54 54)0;font-size: 20px; }
+.text-filtros{text-align: center;color: rgb( 54 54 54);font-size:25px;}
+.text-titulo{text-align: center; font-family: 'Montserrat', sans-serif;font-size: 1.5em;}
+.fitro_head{height: 80px; width: 100%; background: #363636 ; display: flex;}
+.logo-trabalho{ width: 170px ;height: 50px; margin: 20px 0px 100px 90px ; border-radius: 5px  ; text-align: left;  display:block; }
+.logo-uta{ width: 170px ;height: 40px;margin: 10px 0px 0px 650px;  background-color: aliceblue; display:block;border: 14px solid white}
+h6{ display: inline-block ;border-color: white;margin-left: 400px;margin: 0px 0px 900px 50px;color: #e3e3e6;font-size: 20px }
+
+.butao:hover{
+    background-color: white;
+    color: black;
+}
+
+h6{
+    color: rgb( 54 54 54)0;font-size: 20px;
+    margin-top: 30px;
+}
+body {
+  background-image: url('cv.jpg');
+  background-size: cover;       /* A imagem cobre toda a página */
+  background-repeat: no-repeat; /* Não repete */
+  background-position: center;  /* Centraliza */
+}
+.body-main{
+    width: 1000px;
+    height: 190px;
+    border: 1px solid black;
+    margin-left: 16%;
+    margin-top : 10%;
+    background:  rgba(227, 227, 230, 1);
+    border-radius:10px;
+}
+.filtro-geral{  background:white; width: 300px;height: 50px; text-align: center; border: 3px solid black ; margin: 70px 0 0 120px; font-size: 20px}
+.fitro-locais-geral{ background:white;  width: 300px;height: 50px; text-align: center; border: 3px solid black ;;margin: 30px 0 0px 0px;font-size: 20px; }

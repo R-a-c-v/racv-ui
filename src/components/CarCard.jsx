@@ -1,8 +1,11 @@
 import React from 'react'
 import logo from '/foto.jpeg'
 import '../styles/app.css'
-
-export default function  CarCard({ car }) {
+export default function  CarCard({ car,nome,ilha,link}) {
+  console.log("ultimo componente anuncio  ",car)
+  console.log("ultimo componente nome  ",nome)
+  console.log("ultimo componente ilha  ",ilha)
+  console.log("ultimo componente link  ",link)
   return (
     <div className="car-card">
       <div>

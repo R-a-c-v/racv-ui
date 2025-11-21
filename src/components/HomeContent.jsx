@@ -5,34 +5,32 @@ import CarCard from './CarCard'
 import DivEspaco from './DivEspaco'
 import '../styles/app.css'
 import { Link} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-import logo from '/racv.png'
-import uta from '/uta.png'
+import { useEffect } from 'react'
+
+
+
 export function HomeContent() {
+
+  const navigate = useNavigate();
   const [locais, setLocais] = useState("");
   const [veiculo, setVeiculo] = useState("");
+  const [dados, setDados] = useState([]);
+  const [pesquisa, setPesquisa] = useState([]);
+  const lista = []
+  async function RequestServidor(e) {
+   e.preventDefault(); // evita reload da página
+  try {
+      const res = await fetch(`http://localhost:5002/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`);
+      const json = await res.json(); // pega os dados
+      navigate("/pesquisa", { state: json }); // passa diretamente o json para a rota
 
-  function RequestServidor(e) {
-    e.preventDefault(); // evita reload da página
-    console.log("Veículo:", veiculo);
-    console.log("Locais:", locais);
-    // Aqui você chamaria a função que faz a requisição ao servidor
-    // ex: fetchCars({ veiculo, locais })
-      useEffect(() => {
-      async function fetchCarros() {
-        try {
-          const res = await fetch("http://127.0.0.1:5000/api/carros");
-          const data = await res.json();
-          setCarros(data);
-        } catch (error) {
-          console.error("Erro:", error);
-        }
-      }
-      fetchCarros();
-    }, []);
-  }
-
-  return (
+    } catch (error) {
+    console.error("Erro grande:", error);
+  }   
+}
+return (
     <div className='body-main'>
       <form onSubmit={RequestServidor}>
         <input
@@ -51,9 +49,10 @@ export function HomeContent() {
           name='locais'
           onChange={(e) => setLocais(e.target.value)}
         />
-        <button className='butao' type='submit'>Pesquisar</button>
-      </form>
-      <Link to="/">About</Link>
+        
+      <button className='butao' type='submit'>Pesquisar</button>
+   
+      </form>      
     </div>
   );
 }

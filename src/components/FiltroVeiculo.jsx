@@ -1,18 +1,59 @@
 import React from 'react'
 import logo from '/foto.jpeg'
 import '../styles/app.css'
+import  {useState} from 'react'
+import { useNavigate } from "react-router-dom";
+
 
 export default function  FiltroVeiculo({  }) {
+const [veiculo, setVeiculo] = useState("");
+const [local, setLocal] = useState("");
+const [ilha, setIlha] = useState("");
+const [precoMin, setPrecoMin] = useState("");
+const [precoMax, setPrecoMax] = useState("");
+const navigate = useNavigate();
+
+
+async function Requesicao(e) {
+   e.preventDefault(); // evita reload da página
+  try {
+      const res = await fetch(`http://localhost:5002/filtragem?veiculo=${veiculo}&locais=${local}&ilha=${ilha}&percoMin=${precoMin}&precoMax=${precoMax}`);
+      const json = await res.json(); // pega os dados
+      navigate("/pesquisa", { state: json }); // passa diretamente o json para a rota
+
+    } catch (error) {
+    console.error("Erro grande:", error);
+  }   
+}
+
   return (
-    <section >
-        <label for="desc"></label>
-        <input className="filtro-pesq" placeholder='Veiculos' type='text' name='veiculo' ></input>
-        <label for="desc"></label>
-        <input className="fitro-locais" placeholder='Locais' type='text' name='veiculo'></input>
-        <button className='butao'>Pesquisar</button>
-        <p className='text-filtros'>FILTROS</p>
-        
-        <select className='categ-ilha' defaultValue="">
+<form onSubmit={Requesicao}>
+    <section>
+        <input
+            className="filtro-pesq"
+            placeholder="Veículos"
+            type="text"
+            name="veiculo"
+            value={veiculo}
+            onChange={e => setVeiculo(e.target.value)}
+        />
+
+        <input
+            className="filtro-locais"
+            placeholder="Locais"
+            type="text"
+            name="local"
+            value={local}
+            onChange={e => setLocal(e.target.value)}
+        />
+
+        <button  className='butao' type='submit'>Pesquisar</button>
+        <select
+            className="categ-ilha"
+            name="ilha"
+            value={ilha}
+            onChange={e => setIlha(e.target.value)}
+        >
             <option value="" disabled>Escolha uma ilha</option>
             <option value="São Antão">São Antão</option>
             <option value="São Vicente">São Vicente</option>
@@ -23,30 +64,37 @@ export default function  FiltroVeiculo({  }) {
             <option value="Santiago">Santiago</option>
             <option value="Fogo">Fogo</option>
             <option value="Brava">Brava</option>
-            </select>
-            <label htmlFor="precoMin">Preço mínimo:</label>
-            <select id="precoMin" className='categ-precoMin' defaultValue="">
+        </select>
+
+        <select
+            id="precoMin"
+            className="categ-precoMin"
+            name="precoMin"
+            value={precoMin}
+            onChange={e => setPrecoMin(e.target.value)}
+        >
             <option value="" disabled>De</option>
             <option value="10">10€</option>
             <option value="100">100€</option>
             <option value="1000">1000€</option>
             <option value="10000">10000€</option>
-            </select>
+        </select>
 
-            <label htmlFor="precoMax">Preço máximo:</label>
-            <select id="precoMax" className='categ-precoMax' defaultValue="">
+        <select
+            id="precoMax"
+            className="categ-precoMax"
+            name="precoMax"
+            value={precoMax}
+            onChange={e => setPrecoMax(e.target.value)}
+        >
             <option value="" disabled>Até</option>
             <option value="10">10€</option>
             <option value="100">100€</option>
             <option value="1000">1000€</option>
             <option value="10000">10000€</option>
-            </select>
-        <button className='butao'>Filtrar</button>
+        </select>
 
-        <hr></hr>
-
-  
     </section>
-
-)
+   </form>
+   )
 }

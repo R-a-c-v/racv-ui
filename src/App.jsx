@@ -13,7 +13,7 @@ export default function App() {
     <div >
 
       <Routes>
-        <Route   path="/" element={
+        <Route   path="/pesquisa" element={
           <>  
               <HomeHead/> 
               <FiltroVeiculo/>
@@ -21,27 +21,13 @@ export default function App() {
           </>
           } 
         />
-        <Route   path="/inicio" element={
+        <Route   path="/" element={
           <>  
               <HomeHead/> 
               <HomeContent/>
           </>
           } 
         />
-        <Route   path="/pesquisa" element={
-          <>  
-              <HomeHead/> 
-              <HomeContent/>
-
-              
-          </>
-          } 
-        />  
-       <Route Link to="/inicio" element= {<div>
-              <HomeHead/> 
-              <FiltroVeiculo/>
-              <CarList /> 
-           </div>}/>
       </Routes>
     </div>
   )

@@ -14,7 +14,8 @@ export default function CarList() {
   //console.log("olime marca ",state.marca[0])
   return (
     <div>
-      {localizacao.map((carro, index) => (
+  
+        {localizacao.map((carro, index) => (
         <CarCard
           key={`${carro.modelo}-${index}`} // chave única
           car={state.marca[index] }

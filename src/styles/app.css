@@ -1,49 +1,400 @@
-/*body { font-family: Inter, system-ui, Arial; margin: 0; padding: 0; background:#e3e3e6; color:#222 }*/
-.header { background:#0b5cff; color:white; padding:16px 20px ; text-align: center; border-color: black; box-sizing:1.9em;}
-.car-list { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap:16px }
-.car-card { margin:0 50px 0 60px ; background:  rgba(227, 227, 230, 1); border-radius:8px; margin-top:20px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); display:flex; gap:10px; border: 1px groove black }
-.car-img { width:190px; height:90px; object-fit:cover; border-radius:0px ; padding: 55px 0 30px 45px; border: 1px solid black;}
-.car-body  { margin:0 0 6px 0; font-size:17px;  margin:10px 0 0 170px}
-.car-link  { margin:0 0 58px 0; font-size:17px;  margin:0 0 0 170px }
-.butao-link {padding: 6px 6px 6px 6px;margin-bottom: 10px; margin-left: 10px;}
-.div-pos{background-color: black; }
-.div-marca{text-align: center;}
-.filtro-pesq{   width: 660px;height: 50px; text-align: center; border-right: 1px solid black ; margin: 30px 0 0 20px;background:  rgba(227, 227, 230, 1); color: rgb( 54 54 54)0;font-size: 20px}
-.fitro-locais{background:  rgba(227, 227, 230, 1) ;  width: 700px;height: 50px; text-align: center; border-right: 1px solid black ;;margin: 30px 0 0px 0px;font-size: 20px; }
-.butao{width: 100px;height: 58px; background:#363636; border: 1px solid ; color: white ;cursor: pointer;font-size: 20px;margin-left:7px;border-radius: 10px;  }
-.categ-ilha{width: 250px;height: 60px; margin: 0px 10px 20px 300px;border: none;color: rgb( 54 54 54);font-size: 20px;}
-.categ-precoMin {width: 150px;height: 60px;margin-left: 5px;margin-right: 10px;border: none;color: rgb( 54 54 54);font-size: 20px; }
-.categ-precoMax {width: 150px;height: 60px;margin-left: 5px;border: none; color: rgb( 54 54 54)0;font-size: 20px; }
-.text-filtros{text-align: center;color: rgb( 54 54 54);font-size:25px;}
-.text-titulo{text-align: center; font-family: 'Montserrat', sans-serif;font-size: 1.5em;}
-.fitro_head{height: 80px; width: 100%; background: #363636 ; display: flex;}
-.logo-trabalho{ width: 170px ;height: 50px; margin: 20px 0px 100px 90px ; border-radius: 5px  ; text-align: left;  display:block; }
-.logo-uta{ width: 170px ;height: 40px;margin: 10px 0px 0px 650px;  background-color: aliceblue; display:block;border: 14px solid white}
-h6{ display: inline-block ;border-color: white;margin-left: 400px;margin: 0px 0px 900px 50px;color: #e3e3e6;font-size: 20px }
+  /*body { font-family: Inter, system-ui, Arial; margin: 0; padding: 0; background:#e3e3e6; color:#222 }*/
 
-.butao:hover{
-    background-color: white;
-    color: black;
+.header {
+  background:#0b5cff;
+  color:white;
+  padding:16px 20px;
+  text-align: center;
+  border-color: black;
+  box-sizing: border-box; /* corrigido */
 }
 
-h6{
-    color: rgb( 54 54 54)0;font-size: 20px;
-    margin-top: 30px;
+.car-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap:16px;
 }
-body {
-  background-image: url('cv.jpg');
-  background-size: cover;       /* A imagem cobre toda a página */
-  background-repeat: no-repeat; /* Não repete */
-  background-position: center;  /* Centraliza */
+
+.car-card {
+  margin:20px 50px 0 60px;
+  background: rgba(227, 227, 230, 1);
+  border-radius:8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  display:flex;
+  gap:10px;
+  border: 1px groove black;
 }
-.body-main{
-    width: 1000px;
-    height: 190px;
-    border: 1px solid black;
-    margin-left: 16%;
-    margin-top : 10%;
-    background:  rgba(227, 227, 230, 1);
-    border-radius:10px;
+
+.car-img {
+  width:190px;
+  height:90px;
+  object-fit:cover;
+  border-radius:0px;
+  padding: 55px 0 30px 45px;
+  border: 1px solid black;
 }
-.filtro-geral{  background:white; width: 300px;height: 50px; text-align: center; border: 3px solid black ; margin: 70px 0 0 120px; font-size: 20px}
-.fitro-locais-geral{ background:white;  width: 300px;height: 50px; text-align: center; border: 3px solid black ;;margin: 30px 0 0px 0px;font-size: 20px; }
+
+.car-bod {
+  margin:10px 0 0 170px; 
+  font-size:17px;
+}
+
+.car-link {
+  font-size:17px;
+  margin:0 0 0 290px;
+}
+
+.butao-link {
+  padding: 6px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.div-pos { background-color: black; }
+
+.filtro-card {
+  font-size: 20px;
+  display: inline;
+  margin-left: 10px;
+}
+
+.f {
+  display: inline-block;
+  text-align: center;
+  margin-left: 40px;
+  background: rgba(227, 227, 230, 1);
+}
+
+.div-marca { text-align: center; }
+
+.filtro-pesq {
+  width: 360px;
+  height: 46px;
+  text-align: center;
+  border-right: 1px solid black;
+  margin: 30px 0 0 360px;
+  background: white;
+  color: rgb(54,54,54);
+  font-size: 20px;
+}
+
+.filtro-ilha {
+  width: 360px;
+  height: 50px;
+  text-align: center;
+  border-right: 1px solid black;
+  margin: 30px 0 0 0px;
+  background: white;
+  color: rgb(54,54,54);
+  font-size: 20px;
+}
+
+.fitro-locais {
+  background: rgba(227, 227, 230, 1);
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  border-right: 1px solid black;
+  margin: 30px 0 0 0;
+  font-size: 20px;
+}
+
+.butao {
+  width: 100px;
+  height: 58px;
+  background:#363636;
+  border: 1px solid;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  margin-left:7px;
+  border-radius: 10px;
+}
+
+.categ-ilha {
+  width: 250px;
+  height: 60px;
+  margin: 20px 10px 20px 450px;
+  border: none;
+  color: rgb(54,54,54);
+  font-size: 20px;
+}
+
+.categ-precoMin {
+  width: 150px;
+  height: 60px;
+  margin-left: 5px;
+  margin-right: 10px;
+  border: none;
+  color: rgb(54,54,54);
+  font-size: 20px;
+}
+
+.categ-precoMax {
+  width: 150px;
+  height: 60px;
+  margin-left: 5px;
+  border: none;
+  color: rgb(54,54,54);
+  font-size: 20px;
+}
+
+.text-filtros {
+  text-align: center;
+  color: rgb(54,54,54);
+  font-size:25px;
+}
+
+.text-titulo {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+}
+
+body{
+height: 100%;
+ padding: 0px;
+ margin: 0px;
+box-sizing: border-box;
+
+}
+
+
+.fitro_button {
+  height: 100px;
+  background: #363636;
+  display: flex;
+  margin:190px -10px 0 -10px;
+}
+
+.logo-uta {
+  width: 170px;
+  height: 40px;
+  margin: 10px 0 0 550px;
+  border-radius: 5px;
+  background-color: aliceblue;
+  display:inline-block;
+  border: 14px solid white;
+}
+
+h6 {
+  color: rgb(54,54,54);
+  font-size: 20px;
+  margin-top: 30px;
+  display: inline-block;
+}
+
+.logo-lupa {
+  width: 90px;
+  height: 90px;
+  margin: 0 1px 0 0;
+}
+
+
+.email {
+  display: inline-block;
+  margin: 40px 0 900px 50px;
+  color: #e3e3e6;
+  font-size: 25px;
+}
+
+.titulo {
+   font-family: Impact, Charcoal, sans-serif; /* fonte nativa grossa */
+  font-size: 48px;                          /* tamanho grande */
+  font-weight: 400;                         /* mais grosso */
+  color:  rgb(54,54,54);; ;                           /* cor chamativa */
+  text-transform: uppercase;                /* todas letras maiúsculas */
+  text-align: center;
+  letter-spacing: 2px;
+  padding-top: 50px ;
+
+}
+
+.titulo_um {
+  margin-top: 0px;
+  color:  rgb(54,54,54);
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 40px;
+  font-family: "Alfa Slab One", serif;
+  width: 100%;
+  height: 50px;
+}
+
+.alfa-slab-one-regular {
+  font-family: "Alfa Slab One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.butao:hover {
+  background-color: white;
+  color: black;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* OBRIGATÓRIO para altura total */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+/* Melhor experiência */
+#root {
+  min-height: 100%;
+}
+.quadro-filtro {
+  height: max-content;
+  width: 100%;
+  background: rgba(227, 227, 230, 1);
+  margin-left: 15px; /* corrigido */
+}
+.bbb {
+  display: inline-block;
+  border: 10px solid black;
+ }
+.bodi-main {
+  display: inline-block;
+  width: 100%;
+  height:600px; 
+  
+background: linear-gradient(90deg,
+  #0077B6,
+  #0096C7,
+  #00B4D8,
+  #48CAE4,
+  #90E0EF
+);
+}
+.bloco{
+  display: block;
+}
+.bodirazoes{
+  display: inline-block;
+  width: 100%;
+  height: 570px;
+  background:  rgba(227, 227, 230, 1);
+}
+
+.quadro_conteudo_esq {
+  display: inline-block;
+  text-align: left;
+  height: 190px;
+  width: 400px;
+  margin-left: 350px;
+  color: rgb(54,54,54);
+}
+
+.quadro_conteudo_dir {
+  display: inline-block;
+  height: 190px;
+  width: 400px;
+  text-align: left;
+  color: rgb(54,54,54);
+  margin-left: 40px;
+}
+.logoracv {
+  width: 90px;
+  background-color: white;
+  height: auto;
+  display: inline-block;
+}
+
+.logoracvpesq{
+  width: 100px;
+  background-color: white;
+  height: auto;
+  display: inline-block;
+  margin-left: 660px;
+  margin-top: 70px;
+  margin-bottom: 10px;
+}
+.font-racv {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color:  rgb(54,54,54);
+  display: inline-block;
+}
+
+.filt {
+  font-size: 24px;
+  color: black;
+  text-align: center;
+}
+
+.filtro-geral {
+  background:white;
+  width: 300px;
+  height: 43px;
+  text-align: center;
+  border: 3px solid black;
+  margin: 50px 0 0 270px;
+  font-size: 20px;
+}
+
+.fitro-locais-geral {
+  background:white;
+  width: 500px;
+  height: 60px;
+  text-align: center;
+  border: 0px solid black;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 0px 0px 0px 450px ;
+}
+
+.logo-trabalho {  
+  
+}
+li {
+  list-style: none;
+  font-size: 1.5em;
+  float: right;
+  margin: 15px;
+  margin-right: 5%;
+  text-align: center;
+}
+
+.fitro_head {
+ display: inline-block;
+  background: rgb(54,54,54);;
+  height: 60px;
+  width: 100%;
+  color: white;
+}
+.login_btn{
+  font-size: 20px;
+  font-size: 20px;
+  color: black; 
+}
+.registar_btn{
+  font-size: 20px;
+
+  text-align: center;
+}
+.levant_titulo{
+ 
+  font-family: Impact, Charcoal, sans-serif; /* fonte nativa grossa */
+  font-size: 20px;                          /* tamanho grande */
+  font-weight: 400;                         /* mais grosso */
+  color:  white ;                           /* cor chamativa */
+  text-transform: uppercase;                /* todas letras maiúsculas */
+  text-align: center;
+  letter-spacing: 2px;
+  margin-left: 450px;
+  margin-bottom: 50px;
+}
+.logos-home{
+  width: 200px;
+  height: 100px;
+  display: block;
+  margin-top: 100px;
+  margin-left: 50px;
+  float: left;
+
+}

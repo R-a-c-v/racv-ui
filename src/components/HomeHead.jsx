@@ -10,10 +10,15 @@ import uta from '/uta.png'
 
 export default function HomeHead() {
   return (
-    <div className='fitro_head'>
-        <img className='logo-trabalho' src={logo} alt="RACV Logo"  />
-        <img className='logo-uta' src={uta} alt="RACV Logo"  />
-        <h6>Por rmfortes@uta.cv</h6>
-     </div>
+    <nav>
+        <ul className='fitro_head'>
+            <img  src={logo} alt="RACV Logo" style={{ width: "170px", height: "50px" }}/>
+            <li className='logo-trabalho'></li>
+            <li> Por rmfortes@uta.cv</li>
+            <li><button className='registar_btn'>Registar</button></li>
+            <li> <button className='login_btn'>Login</button> </li>
+            <li> Missão</li>
+        </ul>   
+     </nav>
   )
 }

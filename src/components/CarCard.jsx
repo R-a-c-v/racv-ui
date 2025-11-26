@@ -2,10 +2,6 @@ import React from 'react'
 import logo from '/foto.jpeg'
 import '../styles/app.css'
 export default function  CarCard({ car,nome,ilha,link}) {
-  console.log("ultimo componente anuncio  ",car)
-  console.log("ultimo componente nome  ",nome)
-  console.log("ultimo componente ilha  ",ilha)
-  console.log("ultimo componente link  ",link)
   return (
     <div className="car-card">
       <div>
@@ -17,7 +13,7 @@ export default function  CarCard({ car,nome,ilha,link}) {
       />
       <h4 className="div-marca"> {car.marca}</h4>
       </div>
-      <div className="car-body">
+      <div className="car-bodi">
         <p>Assentos: {car.numero_passageiro}</p>
         <p>Transmissao: {car.transmissao}</p>
         <p>Modelo: {car.modelo}</p>
@@ -30,8 +26,8 @@ export default function  CarCard({ car,nome,ilha,link}) {
       </div>
      
       <div className="car-link">
-        <h2>{car.preco}$</h2>
-        <h2>Diaria</h2>
+        <h4 >{car.preco}$</h4>
+        <h4>Diaria</h4>
       </div>
   
     </div>

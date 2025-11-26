@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -31,6 +31,22 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* OBRIGATÓRIO para altura total */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+/* Melhor experiência */
+#root {
+  min-height: 100%;
 }
 
 .card {

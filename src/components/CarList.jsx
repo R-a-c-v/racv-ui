@@ -1,29 +1,41 @@
 import React from 'react';
 import CarCard from './CarCard';
+import AnuncCard from './AnuncCard';
 import { useLocation } from 'react-router-dom';
 
-export default function CarList() {
+export default function CarList({ dado }) {
   const { state } = useLocation() || {};
 
   // fallback caso state seja undefined
   const localizacao = state?.localizacao || [];
-  const marcas = state?.marca || [];
 
-  if (!localizacao.length) return <div>Nenhum carro encontrado</div>;
-  //console.log("olime localizacao",state.localizacao[0])
-  //console.log("olime marca ",state.marca[0])
+  // verificar se props.dado é um array válido
+  const hasDado =   Array.isArray(dado) ;
+  if (hasDado) {
+    return (
+      <div className='lista-anunc'>
+        {dado.map((anunc, index) => (
+          <AnuncCard
+            key={`${anunc.nome}-${index}`}
+            anunciante={anunc}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // caso não exista props.dado
+  if (localizacao.length === 0) return <div>Nenhum carro encontrado</div>;
+
   return (
-    <div>
-  
-        {localizacao.map((carro, index) => (
+    <div className='lista-anunc'>
+      {localizacao.map((carro, index) => (
         <CarCard
-          key={`${carro.modelo}-${index}`} // chave única
-          car={state.marca[index] }
-          nome={state.localizacao[index].nome }
-          ilha={state.localizacao[index].ilha }
-          link={state.localizacao[index].link }
-          //anunciante={state.localizacao[index] }
-         // anunciante={carro.carro}
+          key={`${carro.modelo}-${index}`}
+          car={state?.marca?.[index]}
+          nome={carro.nome}
+          ilha={carro.ilha}
+          link={carro.link}
         />
       ))}
     </div>

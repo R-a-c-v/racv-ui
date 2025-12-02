@@ -33,10 +33,10 @@ async function RequestServidor(e) {
    try {
       const res = await fetch(`http://localhost:5002/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`);
       const json = await res.json(); // pega os dados
-      console.log(json)
-      navigate("/pesquisa", { state: json } ,{v:"ddd"}); // passa diretamente o json para a rota
+      console.log("ddd",json)
+      navigate("/pesquisa", { state: json }); // passa diretamente o json para a rota
    } catch (error) {
-    console.error("Erro grande:", error);
+     console.log(error)
   }   
 }
 
@@ -47,7 +47,7 @@ return (
             <p  className='titulo'>   O Portal rent a car de cabo verde</p >
               < img className='logoracvpesq'  src={logo} alt="RACV Logo"/>
               <br/>
-              <label htmlFor="" className='levant_titulo' >Local de levantamento</label>
+              <label htmlFor="" className='levant_titulo' >Local de levantamento</label><br/>
 
             <form onSubmit={RequestServidor}>
               <select

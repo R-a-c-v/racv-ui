@@ -14,15 +14,17 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap:16px;
 }
-
+ 
 .car-card {
-  margin:20px 50px 0 60px;
-  background: rgba(227, 227, 230, 1);
+  height: 150px;
+  width: 750px;
+  margin: 0px 0px 30px 560px;
+  background: white;
   border-radius:8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.06);
   display:flex;
-  gap:10px;
   border: 1px groove black;
+
 }
 
 .car-img {
@@ -30,24 +32,33 @@
   height:90px;
   object-fit:cover;
   border-radius:0px;
-  padding: 55px 0 30px 45px;
   border: 1px solid black;
 }
 
-.car-bod {
-  margin:10px 0 0 170px; 
-  font-size:17px;
+.car-bodi {
+  margin:0px 0 0 20px; 
+  font-size:17px; 
 }
 
 .car-link {
   font-size:17px;
-  margin:0 0 0 290px;
+  margin:0 0 0 90px;
 }
 
 .butao-link {
   padding: 6px;
   margin-bottom: 10px;
   margin-left: 10px;
+  color: black;
+  width: 50px;
+  font-weight: 900;
+  background: linear-gradient(90deg,
+    #0077B6,
+    #0096C7,
+    #00B4D8,
+    #48CAE4,
+    #90E0EF
+  );
 }
 
 .div-pos { background-color: black; }
@@ -59,10 +70,8 @@
 }
 
 .f {
-  display: inline-block;
-  text-align: center;
-  margin-left: 40px;
-  background: rgba(227, 227, 230, 1);
+  display: block;
+  margin: 10px;
 }
 
 .div-marca { text-align: center; }
@@ -83,7 +92,7 @@
   height: 50px;
   text-align: center;
   border-right: 1px solid black;
-  margin: 30px 0 0 0px;
+  margin: 50px 0 0 120px;
   background: white;
   color: rgb(54,54,54);
   font-size: 20px;
@@ -101,14 +110,13 @@
 
 .butao {
   width: 100px;
-  height: 58px;
+  height: 50px;
   background:#363636;
   border: 1px solid;
   color: white;
   cursor: pointer;
   font-size: 20px;
-  margin-left:7px;
-  border-radius: 10px;
+  margin-left:0px;
 }
 
 .categ-ilha {
@@ -121,34 +129,40 @@
 }
 
 .categ-precoMin {
-  width: 150px;
-  height: 60px;
+  width: 100px;
+  height: 50px;
   margin-left: 5px;
   margin-right: 10px;
   border: none;
   color: rgb(54,54,54);
   font-size: 20px;
+  border: 1px solid black;
+
 }
 
 .categ-precoMax {
-  width: 150px;
-  height: 60px;
+  width: 100px;
+  height: 50px;
   margin-left: 5px;
   border: none;
   color: rgb(54,54,54);
   font-size: 20px;
+  border: 1px solid black;
 }
-
+.bloco{
+}
 .text-filtros {
-  text-align: center;
   color: rgb(54,54,54);
   font-size:25px;
 }
 
 .text-titulo {
-  text-align: center;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.5em;
+  font-size: 0.8em;
+  font-weight: 900;
+}
+.checkbox-btn{
+  margin-left: 10px;
 }
 
 body{
@@ -159,6 +173,19 @@ box-sizing: border-box;
 
 }
 
+.tela-btn{
+z-index: 2;
+opacity: 1;
+height: 600px;
+width: 800px;
+background:white;
+border: 1px solid black;
+top: 10%;
+left: 25%;
+position: absolute;
+text-align: center;
+ ;
+}
 
 .fitro_button {
   height: 100px;
@@ -221,13 +248,32 @@ h6 {
   width: 100%;
   height: 50px;
 }
-
+.x-btn{
+  position: relative;
+  margin-left: 96%;
+  width: 30px;
+  height: 30px;
+  color: black;
+  font-weight: 800;
+}
+.x-btn:hover{
+  background-color: black;
+  color: white;
+}
 .alfa-slab-one-regular {
   font-family: "Alfa Slab One", serif;
   font-weight: 400;
   font-style: normal;
 }
 
+.anunciantes-btn:hover {
+  background-color: white;
+  color: black;
+}
+.anuncio-btn:hover {
+  background-color: white;
+  color: black;
+}
 .butao:hover {
   background-color: white;
   color: black;
@@ -249,16 +295,70 @@ html, body {
   min-height: 100%;
 }
 .quadro-filtro {
-  height: max-content;
-  width: 100%;
-  background: rgba(227, 227, 230, 1);
-  margin-left: 15px; /* corrigido */
+   display: inline;
+    background-color: rgb(227, 227, 230, 1);
+}
+body{
+    background-color: rgb(227, 227, 230, 1);
+}
+.btn-pesq{
+   display: inline;
+   margin-left: 190px;
+   margin-right: 10px;
+   margin-top: 20px;
+   height: 720px;
+   width:350px;
+   border: 2px solid black;
+   float: left;
+   background-color: white;
+}
+.filtragem-radio{
+   display: inline-block;
+   margin-top: 20px;
+
+   height: 120px;
+   width:  755px;
+   border: 2px solid black;
+    background: linear-gradient(90deg,
+  #0077B6,
+  #0096C7,
+  #00B4D8,
+  #48CAE4,
+  #90E0EF
+);
+}
+.filtro_li{
+
+}
+
+.anuncio-btn{
+ width: 130px;
+  height: 40px;
+  background:#363636;
+  border: 1px solid;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 30px;
+  margin: 5px 0 0px 200px  ;
+
+}
+
+.anunciantes-btn{
+ width: 150px;
+  height: 40px;
+  background:#363636;
+  border: 1px solid;
+  color: white;
+  border-radius: 30px;
+  font-size: 20px;
+  margin: 0px 0 30px 10px  ;
 }
 .bbb {
   display: inline-block;
   border: 10px solid black;
  }
-.bodi-main {
+.bodi-main{
   display: inline-block;
   width: 100%;
   height:600px; 
@@ -271,8 +371,20 @@ background: linear-gradient(90deg,
   #90E0EF
 );
 }
-.bloco{
-  display: block;
+
+.entidades-quadro{
+  display: inline-block;
+  margin-top: 20px;
+  width: 100%;
+  height:50px; 
+  
+background: linear-gradient(90deg,
+  #0077B6,
+  #0096C7,
+  #00B4D8,
+  #48CAE4,
+  #90E0EF
+);
 }
 .bodirazoes{
   display: inline-block;
@@ -360,14 +472,32 @@ li {
   text-align: center;
 }
 
-.fitro_head {
+.fitro-head {
  display: inline-block;
   background: rgb(54,54,54);;
   height: 60px;
   width: 100%;
   color: white;
 }
-.login_btn{
+
+
+.fitro-head-opacidade {
+ display: inline-block;
+  background: rgb(54,54,54);;
+  height: 60px;
+  width: 100%;
+  color: white;
+ 
+}
+.fitro_head {
+ display: inline-block;
+  background: rgb(54,54,54);;
+  height: 60px;
+  width: 100%;
+  color: white;
+  opacity: 0.1;
+}
+.login-btn{
   font-size: 20px;
   font-size: 20px;
   color: black; 

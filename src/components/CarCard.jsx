@@ -14,14 +14,14 @@ export default function  CarCard({ car,nome,ilha,link}) {
       <h4 className="div-marca"> {car.marca}</h4>
       </div>
       <div className="car-bodi">
-        <p>Assentos: {car.numero_passageiro}</p>
-        <p>Transmissao: {car.transmissao}</p>
-        <p>Modelo: {car.modelo}</p>
+        <p>Assentos: {car.numero_passageiro}</p><br/>
+        <p>Transmissao: {car.transmissao}</p><br/>
+        <p>Modelo: {car.modelo}</p><br/>
 
       </div>
       <div className="car-link">
         <h4>Fornecido : </h4>
-        <h4>{car.marca}</h4>
+        <h4>{car.marca}</h4><br/>
         <button className="butao-link">Link</button>
       </div>
      

@@ -8,6 +8,7 @@ import '../styles/app.css'
 
 export default function Registro( props){
 const navigacao = useNavigate();
+const { dataLogin} = useLocation() || {};
 const fechar = useRef()
 const divRef = useRef()
 const location = useLocation()
@@ -18,7 +19,10 @@ const [email, setEmail] = useState("");
 const [senha, setSenha] = useState("");  
 const [novaSenha, setNovaSenha] = useState("");  
 const [auditUser, setAuditUser] = useState("");  
-const [estado, setEstado] = useState();  
+const [conflitoSenha, setConflitoSenha] = useState();
+const [conflitoEmail, setConflitoEmail] = useState();
+
+props.setestado(false)
 
  useEffect(() => {
     if (location.pathname === "/Login") {
@@ -27,47 +31,65 @@ const [estado, setEstado] = useState();
     setMostrar(false); // fecha quando muda para outra rota
   }
 }, [location.pathname]);
-function registroFuncao(e){
-    e.preventDefault();
+
+function registroFuncao(e)
+{
+    e.preventDefault()
+    async function autenticacao(e) 
+    {
     
-    if(novaSenha!=senha){
-        setEstado(true)
-        return 0
-    } 
-    else if (novaSenha==senha){
-     setEstado(false)
-     autenticacao()
-     return 0
-   
-    }
-
-
-    async function autenticacao(e) {
         setAuditUser(tipo) 
-        try {
-            const res = await fetch(`http://localhost:5000/autenticacao?senha=${senha}&email=${email}&audit_user=${auditUser}`,
-                                    {method: "POST"});
-                                    console.log(typeof(res.status) , res.status)
-            if (res.status == 201){
+        try 
+        {
+            const res = await fetch(`http://localhost:5000/registar?senha=${senha}&email=${email}&senha_repetida=${novaSenha}&audit_user=${auditUser}`,{method: "POST"});
+            
+            const json = await res.json()
+            
+            if (res.status == 201)
+            {
                 if (tipo == "Empresa"){
-                    navigacao("/registrar")
+                    navigacao("/registrar",{state:{email:email, user: tipo} } )
                 }
                 else if (tipo == "Individual"){
                     navigacao("/")
                     alert("Conta criada com sucesso. Certifique-se de manter os seus dados de acesso em segurança.")
                 }
             }
-            else{
+            else if ( res.status < 200 || res.status > 300  )
+            {
+                if (json.email)
+                {   
+                    setConflitoEmail(true)  
+                }
+                else
+                {
+                    setConflitoEmail(false)  
+                
+                }
+                
+                if(json.senha)
+                {   
+                    setConflitoSenha(true)
+                }
+                else
+                {
+                    setConflitoSenha(false)    
+                }
+                
+            }
+            else
+            {   
                 alert("Conta não foi criada com sucesso.Repetir o processo")
             }
-        
-        } catch (error) {
-              console.error();
+            
         }
-    }    
-
+        catch(error) 
+        {
+            console.error();
+        }
+    }
+    autenticacao()
 }
-
 function fecharJanela(){
     setMostrar(false)
     navigacao("/")
@@ -86,6 +108,7 @@ return (
                 <div className="campo">
                     <label>Email</label> <br/>
                     <input type="email" value={email} onChange={(e)=>(setEmail(e.target.value))} required/>
+                    {conflitoEmail&&<div className={{ color:'red'}} >Emails repetidos</div>}
                 </div>
 
                 <div className="campo">
@@ -96,7 +119,7 @@ return (
                 <div className="campo">
                     <label>Confirme a sua senha</label><br/>
                     <input type="password"  value={novaSenha} onChange={(e)=>(setNovaSenha(e.target.value))}  required />
-                    {estado&&<div>Senhas Não iguais</div>}
+                    {conflitoSenha&&<div className={{ color:'red'}}>Senhas Não iguais</div>}
                 </div>
                     <label>Tipo de conta </label><br/>
 

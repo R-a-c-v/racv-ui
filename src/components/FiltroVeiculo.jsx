@@ -1,56 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/app.css';
+import sa from '/sa.jpeg'
+
 import CarList from "../components/CarList";
+import CarCard from './CarCard';
 
 export default function FiltroVeiculo() {
   const { state } = useLocation() || {};
+  const { cotacao } = useLocation() || {};
+  const [moeda, setMoeda] = useState(""); // "euros", "dolares" ou "escudos"
+  const anunciantes = "Teus Anuncios"
+  const anuncios = "Anunciantes"
+
   const navigate = useNavigate();
 
   // Estados do filtro
   const [primeiraRender, setPrimeiraRender] = useState(true);
+  const [primeiraPesquisa, setPrimeiraPesquisa] = useState(true);
 
   const [veiculo, setVeiculo] = useState("");
   const [local, setLocal] = useState("");
   const [ilha, setIlha] = useState("");
-  const [cambio,setCambo] = useState("")
+  const [cambio,setCambio] = useState("")
   const [resultado, setResultado] = useState("");
   const [dados, setDados] = useState("");
-  const [escudos, setEscudos] = useState("");
-  const [euros, setEuros] = useState("");
-  const [dolares, setDolares] = useState("");
+  const [escudos, setEscudos] = useState(false);
+  const [euros, setEuros] = useState(false);
+  const [dolares, setDolares] = useState(false);
+  const [localLevantamento, setLocalLevantamento] = useState(false);
   const [transmissaoManual, setTransmissaoManual] = useState("");
   const [transmissaoAutomatico, setTransmissaoAutomatico] = useState("");
   const [numeroPassageiroUm, setNumeroPassageiroUm] = useState("");
   const [numeroPassageiroQuatro, setNumeroPassageiroQuatro] = useState("");
   const [arCondicionado, setArcondicionado] = useState("");
-  const [precoMin, setPrecoMin] = useState("");
-  const [precoMax, setPrecoMax] = useState("");
+  const [precoMin, setPrecoMin] = useState(0);
+  const [precoMax, setPrecoMax] = useState(0);
   const [anunciante, setAnunciante] = useState("");
-  
+  const token = localStorage.getItem("token");
+   
   // -----------------------------------
   // SEUS useEffect EXISTENTES
   // -----------------------------------
+
+useEffect(()=>
+  {
+    if (primeiraPesquisa) {
+      
+      setLocal(state.localizacao[0].ilha)
+      console.log("Local",local)
+      setResultado(state.localizacao.length)
+      setPrimeiraPesquisa(false)
+         // não executa na primeira render
+  }},[])
 useEffect(() => {
   
   async function filtragemAnuncios() {
       if (primeiraRender) {
-      setPrimeiraRender(false);
-      return; // não executa na primeira render
+        setPrimeiraRender(false);
+        return ; // não executa na primeira render
       }
+      
 
       try {
-        const ilha = "Santo Antão"
-        const rest = await fetch(`http://localhost:5002/filtragem?local=${ilha}&automatico=${transmissaoAutomatico}&manual=${transmissaoManual}&passageiro_um=${numeroPassageiroUm}&passageiro_quatro=${numeroPassageiroQuatro}&ar_condicionado=${arCondicionado}&preco_min=${precoMin}&preco_max=${precoMax} `);
+        let ilha = local
+       
+        const rest = await fetch(`http://localhost:5002/filtragem?local=${ilha}&automatico=${transmissaoAutomatico}&manual=${transmissaoManual}&passageiro_um=${numeroPassageiroUm}&passageiro_quatro=${numeroPassageiroQuatro}&ar_condicionado=${arCondicionado}&preco_min=${precoMin}&preco_max=${precoMax}&euros=${euros}`);
         const json = await rest.json();
         setResultado(json.localizacao.length);
-        console.log("olime",json.localizacao.length)
-        navigate("/pesquisa", { state: json }); 
+        
+        json.localizacao.map((carro,index)=>
+          {
+            json.marca[index].preco  = parseFloat(json.marca[index].preco / CambioValor(moeda)).toFixed(0) + ""
+          }
+        )
 
+        navigate("/pesquisa", { state: json }); 
       } catch (error) {
-      console.log(error)
+        console.log(error)
       }
-    
   }
  filtragemAnuncios () 
  
@@ -61,7 +89,8 @@ useEffect(() => {
   numeroPassageiroQuatro,
   arCondicionado,
   precoMin,
-  precoMax
+  moeda,
+  precoMax,
 ]);
 
   // -----------------------------------
@@ -76,70 +105,172 @@ useEffect(() => {
   // -----------------------------------
   // Função para pesquisar veículos
   // -----------------------------------
+function CambioValor(moeda){
+if (moeda=="euros")
+{
+  return 110
+}
+
+if (moeda=="dolares")
+{
+  return 90   
+}
+
+return 1 
+}
+function RequestServidorCambio(){
+    async function filtragemAnuncios() {
+   
+      try {
+        
+        const ilha = local
+        const rest = await fetch(`http://localhost:5001/filtragem?local=${ilha}&automatico=${transmissaoAutomatico}&manual=${transmissaoManual}&passageiro_um=${numeroPassageiroUm}&passageiro_quatro=${numeroPassageiroQuatro}&ar_condicionado=${arCondicionado}&preco_min=${precoMin}&preco_max=${precoMax}&euros=${euros}`);
+        const json = await rest.json();
+        
+        setResultado(json.localizacao.length);
+        navigate("/pesquisa", { state: json }); 
+
+      } catch (error) {
+        console.log(error)
+      }
+  }
+      filtragemAnuncios()
+
+}
   async function RequestServidor(e) {
-    e.preventDefault();
-    try {
-      const res = await fetch(`http://localhost:5002/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${local}`);
-      const json = await res.json();
-      setResultado(json.localizacao.length);
-      console.log(resultado)
-      navigate("/pesquisa", { state: json }); 
-    } catch (error) {
-      console.error("Erro na pesquisa:", error);
-    }
+    
+    //if (token)
+    //{
+
+
+    //}
+    
+    //else
+    //{
+      e.preventDefault();
+      try {
+        const res = await fetch(`http://localhost:5002/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${local}`);
+        const json = await res.json();
+        setResultado(json.localizacao.length);
+        navigate("/pesquisa", { state: json }); 
+      } catch (error) {
+        console.error("Erro na pesquisa:", error);
+      }
+    //}
   }
   async function RequestAnunciantes(e) {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/anunciante`);
+      const res = await fetch(`http://localhost:5000/pesquisa_filtragem_inicio?ilha=${local}`);
       const json = await res.json();
-      console.log("/anunciante",json)
       navigate("/anunciante", {state : json})
       setResultado(json.length)
     } catch (error) {
       console.error("Erro na pesquisa:", error);
     }
   }
-  // -----------------------------------
   // Função para buscar anunciantes
-  // -----------------------------------
+  function pesquisaIlha(){
+   return <form onSubmit={RequestServidor} className='quadro-filtro'>
+      <section>
+        <select
+          className="filtro-ilha"
+          name="local"
+          value={local}
+          onChange={e => setLocal(e.target.value)}
+        >
+          <option value="" disabled>Ilha</option>
+          <option value="Santo Antão">Santo Antão</option>
+          <option value="São Vicente">São Vicente</option>
+          <option value="São Nicolau">São Nicolau</option>
+          <option value="Sal">Sal</option>
+          <option value="Boa Vista">Boa vista</option>
+          <option value="Maio">Maio</option>
+          <option value="Santiago">Santiago</option>
+          <option value="Fogo">Fogo</option>
+          <option value="Brava">Brava</option>
+        </select>
+        <button className='butao' type='submit'>Pesquisar</button>
+      </section>
+  </form>
+}
+ function ilhaPesquisada(){
   
+  return  (
+    <div>
+    <span 
+      style={{           
+        position: 'absolute',
+        top: '180px',
+        left: '260px',
+        color: 'white',
+        fontSize: '30px',
+        fontWeight: 'bold',
+        textShadow: '1px 1px 3px black'
+      }}>
+    
+      {local } 
+   </span>
+  <img className='img-ilha-levantamento' src={sa} alt="sa"></img> 
+</div>  
+)
+ }
 
-  // -----------------------------------
-  // JSX
-  // -----------------------------------
-  return (
+return (
     <div className='quadro-filtro'>
+      
       <div className='btn-pesq'>
-        <p className='filt text-titulo'>Filtros</p>
+      <br />
+      <br />
+
+        <div className="entidades-levantamento">
+          <p className='filt text-titulo'>Local Levantamento</p>
+          <br></br>
+          <p className=' text-titulo'></p>
+          <p className='text-titulo'>
+             {localLevantamento?pesquisaIlha():ilhaPesquisada()}
+          </p>
+          <button className="modificar-btn"onClick={()=>{setLocalLevantamento(!localLevantamento)}} >Modificar </button>
+        </div>   
         <div className='filtro-card'>
 
           {/* Preço */}
-      <form onSubmit={RequestServidor}>
-        <div className='f'>
-          <label className='text-titulo'>Preço</label>
-          <hr /><br />
+        <form>
+          <div className='f'>
+            <label className='text-titulo'>Preço</label>
+            <hr/><br />
 
-          <label className='checkbox-btn'>
-            Euros
-            <input type='radio' name='moeda' value='EUR' className='checkbox-btn' />
-          </label>
-          <br />
+            <label className='checkbox-btn'>Euros</label>
+            <input
+              type='checkbox'
+              name='moeda'
+              checked={moeda === "euros"}
+              onChange={() => setMoeda("euros")}
+              className='checkbox-btn'
+            />
+            <br/>
 
-          <label className='checkbox-btn'>
-            Dólares
-            <input type='radio' name='moeda' value='USD' className='checkbox-btn' />
-          </label>
-          <br />
+            <label className='checkbox-btn'>Dólares</label>
+            <input
+              type='checkbox'
+              name='moeda'
+              checked={moeda === "dolares"}
+              onChange={() => setMoeda("dolares")}
+              className='checkbox-btn'
+            />
+            <br/>
 
-          <label className='checkbox-btn'>
-            Escudos
-            <input type='radio' name='moeda' value='CVE' className='checkbox-btn' />
-          </label>
-          <br />
-        </div>
-      </form>
-
+            <label className='checkbox-btn'>Escudos</label>
+            <input
+              type='checkbox'
+              name='moeda'
+              checked={moeda === "escudos"}
+              onChange={() => setMoeda("escudos")}
+              className='checkbox-btn'
+            />
+            <br/>
+          </div>
+        </form>
         
 
           <br />
@@ -180,20 +311,15 @@ useEffect(() => {
             <label className='text-titulo'>Preço</label>
             <hr /><br />
             <select className='categ-precoMin ' value={precoMin} onChange={e => setPrecoMin(e.target.value)}>
-              <option value="" disabled selected hidden>De</option>
-              <option value="10">10€</option>
-              <option value="100">100€</option>
-              <option value="1000">1000€</option>
-              <option value="10000">10000€</option>
+              <option value={0} >Até</option>
+              <option value={1000} >{parseFloat(1000 / CambioValor(moeda)).toFixed(1)}$</option>
+              <option value={5000}>{parseFloat(5000 / CambioValor(moeda)).toFixed(1)}$</option>
+              <option value={6000 }>{parseFloat(6000 / CambioValor(moeda)).toFixed(1)}$</option>
+              <option value={7000 }>{parseFloat(7000 / CambioValor(moeda)).toFixed(1)}$</option>
+              <option value={8000 }>{parseFloat(8000 / CambioValor(moeda)).toFixed(1)}$</option>
+              <option value={10000}>{parseFloat(10000 / CambioValor(moeda)).toFixed(1)}$</option>
             </select>
 
-            <select className='categ-precoMax' value={precoMax} onChange={e => setPrecoMax(e.target.value)}>
-              <option value="" disabled selected hidden>Até</option>
-              <option value="10">10€</option>
-              <option value="100">100€</option>
-              <option value="1000">1000€</option>
-              <option value="10000">10000€</option>
-            </select>
           </div>
 
         </div>
@@ -201,41 +327,20 @@ useEffect(() => {
 
       {/* Formulário de pesquisa */}
       <div className='filtragem-radio'>
-        <form onSubmit={RequestServidor} className='quadro-filtro'>
-          <section>
-            <select
-              className="filtro-ilha"
-              name="local"
-              value={local}
-              onChange={e => setLocal(e.target.value)}
-            >
-              <option value="" disabled>Escolha uma ilha</option>
-              <option value="Santo Antão">Santo Antão</option>
-              <option value="São Vicente">São Vicente</option>
-              <option value="São Nicolau">São Nicolau</option>
-              <option value="Sal">Sal</option>
-              <option value="Boavista">Boavista</option>
-              <option value="Maio">Maio</option>
-              <option value="Santiago">Santiago</option>
-              <option value="Fogo">Fogo</option>
-              <option value="Brava">Brava</option>
-            </select>
-            <button className='butao' type='submit'>Pesquisar</button>
-          </section>
-        </form>
-      <div className="entidades-quadro">
-         <button  className="anuncio-btn" onClick={RequestServidor}>Anuncio</button>        
-         <button className="anunciantes-btn" onClick={RequestAnunciantes}>Anunciantes</button>        
-      </div>
+
+         <button  className="anuncio-btn" onClick={RequestServidor}>Anuncios</button>        
+         <button className="anunciantes-btn" onClick={RequestAnunciantes}>{token?anunciantes:anuncios}</button>              
  
       </div>
-      <br />
-      <br />
+      
+      
       <br />
       <br />
 
       <div>{resultado} Resultados encontrados</div>
       <hr />
+      
+      <br />
     </div>
   );
 }

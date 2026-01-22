@@ -9,6 +9,7 @@ import CarAnunciante from './components/CarAnunciatnte'
 import Home from './paginas/Home'
 import Login from './paginas/Login'
 import Registar from './paginas/Registar'
+import PainelUtilizador from './paginas/PainelUtilizador'
 
 import './styles/app.css'
 import { HomeContent } from './components/HomeContent'
@@ -22,6 +23,7 @@ export default function Rotas() {
         <Route   path="/" element={<Home/>}/>
         <Route   path="/Login" element={<Login/>}/>
         <Route   path="/registrar" element={<Registar/>}/>
+        <Route   path="/painel" element={<PainelUtilizador/>}/>
       </Routes>
     </div>
   )

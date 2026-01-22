@@ -19,8 +19,7 @@ import Toyota from '../assets/Toyota.png'
 import { useEffect } from 'react'
 
 
-
-export function HomeContent() {
+export function HomeContent(props) {
 
   const navigate = useNavigate();
   const [locais, setLocais] = useState("");
@@ -42,8 +41,14 @@ async function RequestServidor(e) {
 
 return (
     
-    <div className='bodirazoes'>
-        <div className='bodi-main'>
+    <div className={props.estado?'bodirazoes':''}>
+      <div className={
+      props.estado === undefined?
+      'bodi-main':
+       props.estado?
+       'bodi-main':
+      ''
+    }>
             <p  className='titulo'>   O Portal rent a car de cabo verde</p >
               < img className='logoracvpesq'  src={logo} alt="RACV Logo"/>
               <br/>
@@ -58,8 +63,8 @@ return (
                 name='locais'
                 onChange={(e) => setLocais(e.target.value)}
               >
-              <option value="" disabled>Escolha uma ilha</option>
-              <option value="Santo Antão">São Antão</option>
+              <option value="" disabled>Escolha lha</option>
+              <option value="Santo Antão">Santo Antão</option>
               <option value="São Vicente">São Vicente</option>
               <option value="São Nicolau">São Nicolau</option>
               <option value="Sal">Sal</option>
@@ -81,7 +86,13 @@ return (
         
           </div>
   
-    <div className='bodirazoes'>
+    <div className={
+      props.estado === undefined?
+      'bodirazoes':
+      props.estado?
+      'bodirazoes':
+      'bodirazoes-opacidade'
+    }>
       <br/>
         <p  className='titulo_um'> RACV <img className='logoracv'  src={logo} alt="RACV Logo"  />
         <br/><br/><hr/>

@@ -1,0 +1,11 @@
+<li><button className='registar_btn'onClick={requestRegistar}>Registar</button></li>
+<li> <button className='login_btn' type='submit' onClick={requestLogin}>Login</button> </li>
+               <div className="campo">
+            <label htmlFor="documento">Documento da empresa (certidão / alvará)</label>
+            <input
+              id="documento"
+              type="file"
+              name="documento"
+              onChange={(e) => setFoto(e.target.files[0])}
+            />
+          </div>

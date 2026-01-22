@@ -16,15 +16,15 @@
 }
  
 .car-card {
-  height: 150px;
-  width: 750px;
-  margin: 0px 0px 30px 560px;
+  height: 160px;
+  width: 700px;
+  margin: 0px 0px 5px 610px;
   background: white;
   border-radius:8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.06);
   display:flex;
-  border: 1px groove black;
-
+  /*border: 1px groove black;
+*/
 }
 
 .car-img {
@@ -32,17 +32,18 @@
   height:90px;
   object-fit:cover;
   border-radius:0px;
-  border: 1px solid black;
 }
 
 .car-bodi {
   margin:0px 0 0 20px; 
   font-size:17px; 
+   overflow-wrap: break-word
+
 }
 
 .car-link {
   font-size:17px;
-  margin:0 0 0 90px;
+  margin:0 0 0 35px;
 }
 
 .butao-link {
@@ -51,14 +52,17 @@
   margin-left: 10px;
   color: black;
   width: 50px;
-  font-weight: 900;
-  background: linear-gradient(90deg,
-    #0077B6,
-    #0096C7,
-    #00B4D8,
-    #48CAE4,
-    #90E0EF
-  );
+  font-weight: 900;  
+  background:#363636;
+  border: none;
+  color: white;
+  text-decoration: none;
+}
+
+.butao-link:hover{
+  
+  background-color: white;
+  color: black;
 }
 
 .div-pos { background-color: black; }
@@ -88,11 +92,11 @@
 }
 
 .filtro-ilha {
-  width: 360px;
-  height: 50px;
+  width: 160px;
+  height: 40px;
   text-align: center;
   border-right: 1px solid black;
-  margin: 50px 0 0 120px;
+  margin: 20px 0 0 40px;
   background: white;
   color: rgb(54,54,54);
   font-size: 20px;
@@ -110,7 +114,7 @@
 
 .butao {
   width: 100px;
-  height: 50px;
+  height: 59px;
   background:#363636;
   border: 1px solid;
   color: white;
@@ -174,20 +178,18 @@ box-sizing: border-box;
 }
 
 .tela-btn{
-z-index: 2;
-opacity: 1;
-height: 600px;
+height: 400px;
 width: 800px;
 background:white;
 border: 1px solid black;
-top: 10%;
+top: 12%;
 left: 25%;
 position: absolute;
 text-align: center;
  ;
 }
 
-.fitro_button {
+.fitro-butao {
   height: 100px;
   background: #363636;
   display: flex;
@@ -236,6 +238,17 @@ h6 {
   padding-top: 50px ;
 
 }
+.titulo-homeuser {
+   font-family: Impact, Charcoal, sans-serif; /* fonte nativa grossa */
+  font-size: 48px;                          /* tamanho grande */
+  font-weight: 400;                         /* mais grosso */
+  color:  rgb(54,54,54);; ;                           /* cor chamativa */
+  text-transform: uppercase;                /* todas letras maiúsculas */
+  text-align: center;
+  letter-spacing: 2px;
+  padding-top: 100px ;
+
+}
 
 .titulo_um {
   margin-top: 0px;
@@ -248,6 +261,18 @@ h6 {
   width: 100%;
   height: 50px;
 }
+.titulo-home {
+  margin-top: 0px;
+  color:  rgb(54,54,54);
+  display: inline-block;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 40px;
+  font-family: "Alfa Slab One", serif;
+  width: 100%;
+  height: 50px;
+}
+
 .x-btn{
   position: relative;
   margin-left: 96%;
@@ -299,98 +324,146 @@ html, body {
     background-color: rgb(227, 227, 230, 1);
 }
 body{
-    background-color: rgb(227, 227, 230, 1);
+background-color: rgb(235, 235, 238);
+
+}
+.container-user{
+   display: inline;
+   margin-left: 20px;
+   margin-right: 0px;
+   margin-top: 10px;
+   height: 600px;
+   width:350px;
+   border-radius: 10px;
+   float: left;
+   background-color: white;
+
 }
 .btn-pesq{
    display: inline;
-   margin-left: 190px;
-   margin-right: 10px;
+   margin-left: 220px;
+   margin-right: 40px;
    margin-top: 20px;
-   height: 720px;
+   height: 920px;
    width:350px;
-   border: 2px solid black;
+   border-radius: 10px;
    float: left;
    background-color: white;
 }
 .filtragem-radio{
    display: inline-block;
    margin-top: 20px;
-
-   height: 120px;
-   width:  755px;
-   border: 2px solid black;
-    background: linear-gradient(90deg,
-  #0077B6,
-  #0096C7,
-  #00B4D8,
-  #48CAE4,
-  #90E0EF
-);
+   height: 60px;
+   width:  700px;
+   background:white 
 }
 .filtro_li{
 
 }
 
 .anuncio-btn{
- width: 130px;
-  height: 40px;
+  width: 350px;
+  height: 60px;
   background:#363636;
-  border: 1px solid;
   color: white;
-  cursor: pointer;
+  border: none;
   font-size: 20px;
-  border-radius: 30px;
-  margin: 5px 0 0px 200px  ;
+    margin-bottom: 20px;
+
+  padding: 14px 20px;  /* cima/baixo = 12px, lados = 20px */
 
 }
 
 .anunciantes-btn{
- width: 150px;
-  height: 40px;
+   width: 350px;
+  height: 60px;
   background:#363636;
-  border: 1px solid;
+  border: none;
   color: white;
-  border-radius: 30px;
   font-size: 20px;
-  margin: 0px 0 30px 10px  ;
 }
 .bbb {
   display: inline-block;
   border: 10px solid black;
  }
+ .rac-btn{
+  background: none;
+  border: none;
+ }
 .bodi-main{
   display: inline-block;
   width: 100%;
-  height:600px; 
-  
-background: linear-gradient(90deg,
-  #0077B6,
-  #0096C7,
-  #00B4D8,
-  #48CAE4,
-  #90E0EF
+  height:600px;
+  background: linear-gradient(90deg,
+  #d4d4d4,
+  #c9c9c9,
+  #bfbfbf,
+  #c9c9c9,
+  #d4d4d4
 );
+
+
+}
+
+.bodi-painel{
+  display: inline-block;
+  width: 100%;
+  height:650px;
+  background: linear-gradient(90deg,
+  #d4d4d4,
+  #c9c9c9,
+  #bfbfbf,
+  #c9c9c9,
+  #d4d4d4
+);
+
 }
 
 .entidades-quadro{
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   height:50px; 
   
-background: linear-gradient(90deg,
-  #0077B6,
-  #0096C7,
-  #00B4D8,
-  #48CAE4,
-  #90E0EF
-);
+background:white;
 }
+
+
+.entidades-levantamento{
+  display: inline-block;
+  margin-bottom: x90px;
+  width: 100%;
+  height:50px; 
+  
+}
+.img-ilha-levantamento{
+ height: 123px; 
+ width: 347px;
+}
+
 .bodirazoes{
   display: inline-block;
   width: 100%;
   height: 570px;
-  background:  rgba(227, 227, 230, 1);
+  background:  white;
+}
+
+.foto-use{
+  height: 200px;
+  width:  200px;
+}
+.conteiner-home{
+  display: inline-block;
+  width: 100%;
+  height: 400px;
+  background:  white;
+}
+.bodirazoes-opacidade{
+  display: inline-block;
+  width: 100%;
+  height: 570px;
+  background:  white;
+  opacity: 0.9;
 }
 
 .quadro_conteudo_esq {
@@ -422,9 +495,9 @@ background: linear-gradient(90deg,
   background-color: white;
   height: auto;
   display: inline-block;
-  margin-left: 660px;
-  margin-top: 70px;
-  margin-bottom: 10px;
+  margin-left: 670px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .font-racv {
   font-size: 30px;
@@ -432,10 +505,25 @@ background: linear-gradient(90deg,
   color:  rgb(54,54,54);
   display: inline-block;
 }
-
+.modificar-btn{
+  background: rgb(54,54,54);
+  border: none;
+  width: 100px;
+  height: 25px;
+  color: white;
+  font-weight: bold;
+  margin-top: 15px ;
+  margin-left: 120px ;
+}
+.modificar-btn:hover{
+  
+  background-color: black;
+  color: white;
+}
 .filt {
-  font-size: 24px;
+  font-size: 20px;
   color: black;
+
   text-align: center;
 }
 
@@ -457,9 +545,21 @@ background: linear-gradient(90deg,
   border: 0px solid black;
   font-size: 20px;
   border-radius: 10px;
-  margin: 0px 0px 0px 450px ;
+  margin: 10px 0px 0px 450px ;
+  font-weight: 800px;
 }
 
+.fitro-locais-user {
+  background:white;
+  width: 500px;
+  height: 60px;
+  text-align: center;
+  border: 0px solid black;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 10px 0px 0px 200px ;
+  font-weight: 800px;
+}
 .logo-trabalho {  
   
 }
@@ -467,15 +567,15 @@ li {
   list-style: none;
   font-size: 1.5em;
   float: right;
-  margin: 15px;
+  margin: 17px;
   margin-right: 5%;
   text-align: center;
 }
 
 .fitro-head {
  display: inline-block;
-  background: rgb(54,54,54);;
-  height: 60px;
+  background: rgb(54,54,54);
+  height: 70px;
   width: 100%;
   color: white;
 }
@@ -499,13 +599,11 @@ li {
 }
 .login-btn{
   font-size: 20px;
-  font-size: 20px;
+  height: 140px;
   color: black; 
 }
 .registar_btn{
-  font-size: 20px;
-
-  text-align: center;
+  height: 40px;
 }
 .levant_titulo{
  
@@ -519,6 +617,19 @@ li {
   margin-left: 450px;
   margin-bottom: 50px;
 }
+
+.levant-titulo{
+ 
+  font-family: Impact, Charcoal, sans-serif; /* fonte nativa grossa */
+  font-size: 20px;                          /* tamanho grande */
+  font-weight: 400;                         /* mais grosso */
+  color:  white ;                           /* cor chamativa */
+  text-transform: uppercase;                /* todas letras maiúsculas */
+  text-align: center;
+  letter-spacing: 2px;
+  margin-left: 200px;
+  margin-bottom: 50px;
+}
 .logos-home{
   width: 200px;
   height: 100px;
@@ -526,5 +637,5 @@ li {
   margin-top: 100px;
   margin-left: 50px;
   float: left;
-
+  
 }

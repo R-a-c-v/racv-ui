@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom';
 
 export default function CarList({ dado }) {
   const { state } = useLocation() || {};
-
+  const { cotacao } = useLocation() || {};
+   
   // fallback caso state seja undefined
   const localizacao = state?.localizacao || [];
 
@@ -36,6 +37,7 @@ export default function CarList({ dado }) {
           nome={carro.nome}
           ilha={carro.ilha}
           link={carro.link}
+          anunciante={state.localizacao[index].nome}
         />
       ))}
     </div>

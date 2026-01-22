@@ -3,18 +3,17 @@ import {useState} from 'react'
 import logo from '/foto.jpeg'
 import '../styles/app.css'
 import HomeHead from '../components/HomeHead' 
-import {HomeContent} from '../components/HomeContent' 
+import HomeContentUser from '../components/HomeContentUser' 
 import Registro from '../components/Registro' 
 
 
-export default function  Home() {
+export default function  HomeUser() {
 
 const [opacidadeHead , setOpacidadeHead] = useState(true)
     return(
     <div >    
         <HomeHead estado={opacidadeHead} setestado={setOpacidadeHead}/>
-        <Registro estado={opacidadeHead} setestado={setOpacidadeHead}/>
-        <HomeContent estado={opacidadeHead} setestado={setOpacidadeHead}/>
+        <HomeContentUser/>
     </div>
 )
 }

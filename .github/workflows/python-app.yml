@@ -10,7 +10,7 @@ permissions:
 env:
   NODE_VERSION: "20"
   APP_NAME: "racv-ui"
-  APP_ROOT: "/opt/racv-ui"
+  APP_ROOT:"/home/redeautocvuser/racv-ui"
   VM_USERNAME: redeautocvuser
   VM_IP: 74.235.237.161
 
@@ -36,7 +36,7 @@ jobs:
       - name: Package dist
         run: |
           tar -czf dist.tar.gz dist
-          
+
       - name: Debug SSH key
         run: |
           echo "${{ secrets.SSH_KEY_001 }}" | head -n 2

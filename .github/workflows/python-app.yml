@@ -40,10 +40,12 @@ jobs:
         run: |
           echo "${{ secrets.SSH_KEY_001 }}" > ~/deploy_key.pem
           chmod 400 ~/deploy_key.pem
+          # Converter para PEM se necessário
+          ssh-keygen -p -m PEM -f ~/deploy_key.pem -N ""
 
       - name: Upload build
         run: |
-          scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
+            scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
             build.tar.gz \
             ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
 

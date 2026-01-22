@@ -38,11 +38,9 @@ jobs:
 
       - name: Setup SSH key
         run: |
-          echo "${{ secrets.SSH_KEY_001 }}" > ~/deploy_key.pem
-          chmod 400 ~/deploy_key.pem
-          # Converter para PEM se necessário
-          ssh-keygen -p -m PEM -f ~/deploy_key.pem -N ""
-
+          mkdir -p ~/.ssh
+          printf "%s\n" "${{ secrets.SSH_KEY_001 }}" > ~/.ssh/deploy_key.pem
+          chmod 400 ~/.ssh/deploy_key.pem
       - name: Upload build
         run: |
             scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \

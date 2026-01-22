@@ -32,7 +32,7 @@ jobs:
       - name: Package build folder
         run: |
           ls -l
-          tar -czf build.tar.gz build
+          tar -czf build.tar.gz dist
 
       - name: Setup SSH key
         run: |

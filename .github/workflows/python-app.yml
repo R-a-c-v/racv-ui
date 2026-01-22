@@ -60,9 +60,7 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          cat << 'EOF' > ~/.ssh/deploy_key.pem
-          ${{ secrets.SSH_KEY_001 }}
-          EOF
+          echo "${{ secrets.SSH_KEY_001 }}" | base64 -d > ~/.ssh/deploy_key.pem
           chmod 600 ~/.ssh/deploy_key.pem
 
       - name: Deploy on server (atomic swap)

@@ -36,7 +36,22 @@ jobs:
       - name: Package dist
         run: |
           tar -czf dist.tar.gz dist
+          
+      - name: Debug SSH key
+        run: |
+          echo "${{ secrets.SSH_KEY_001 }}" | head -n 2
+          echo "..."
+          echo "${{ secrets.SSH_KEY_001 }}" | tail -n 2
 
+      - name: Debug SSH key length
+        run: |
+          echo "${{ secrets.SSH_KEY_001 }}" | wc -c
+      
+      - name: Debug CR characters
+        run: |
+          echo "${{ secrets.SSH_KEY_001 }}" | grep -P '\r' || echo "No CR found"
+
+ 
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh

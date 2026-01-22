@@ -40,6 +40,7 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
+          # Remove CRLF se a chave veio do Windows
           echo "${{ secrets.SSH_KEY_001 }}" | tr -d '\r' > ~/.ssh/deploy_key.pem
           chmod 600 ~/.ssh/deploy_key.pem
 
@@ -82,7 +83,7 @@ jobs:
 
           sudo systemctl reload nginx || true
 
-          # keep last 5 releases
+          # Keep last 5 releases
           ls -1dt "$RELEASES_DIR"/* | tail -n +6 | xargs -r rm -rf
 
           echo "UI deploy OK -> $RELEASE"

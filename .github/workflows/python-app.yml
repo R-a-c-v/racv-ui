@@ -8,8 +8,10 @@ env:
   APP_NAME: racv-ui
   APP_ROOT: /opt/racv-ui
   NODE_VERSION: "20"
+  HEALTH_PATH: "/ping"
   VM_USERNAME: redeautocvuser
   VM_IP: 74.235.237.161
+
 jobs:
   build:
     runs-on: ubuntu-latest

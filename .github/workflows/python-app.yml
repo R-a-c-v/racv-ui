@@ -82,7 +82,7 @@ jobs:
             ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
           set -euo pipefail
 
-          APP_ROOT="/opt/racv-ui"
+          APP_ROOT="/home/redeautocvuser/racv-ui"
           RELEASE="$(date +%Y%m%d%H%M%S)"
           RELEASES_DIR="$APP_ROOT/releases"
           CURRENT_LINK="$APP_ROOT/current"

@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload artifact
         run: |
-            scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
+            scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
             dist.tar.gz \
             redeautocvuser@74.235.237.161:~/
 

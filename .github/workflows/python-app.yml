@@ -1,39 +1,67 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: RACV UI - CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
-permissions:
-  contents: read
+env:
+  APP_NAME: racv-ui
+  APP_ROOT: /opt/racv-ui
+  NODE_VERSION: "20"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build React
+        run: npm run build
+
+      - name: Archive build
+        run: |
+          tar -czf build.tar.gz build
+
+      - name: Setup SSH key
+        run: |
+          echo "${{ secrets.SSH_KEY_001 }}" > ~/deploy_key.pem
+          chmod 400 ~/deploy_key.pem
+
+      - name: Upload build
+        run: |
+          scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
+            build.tar.gz \
+            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }}:~/
+
+      - name: Deploy on server
+        run: |
+          ssh -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
+            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }} << 'EOF'
+          set -e
+
+          APP_ROOT=/opt/racv-ui
+          RELEASE=$(date +%Y%m%d%H%M%S)
+
+          mkdir -p $APP_ROOT/releases
+          mkdir -p $APP_ROOT/shared
+
+          mv ~/build.tar.gz $APP_ROOT/releases/$RELEASE.tar.gz
+          cd $APP_ROOT/releases
+          mkdir $RELEASE
+          tar -xzf $RELEASE.tar.gz -C $RELEASE
+          rm $RELEASE.tar.gz
+
+          ln -sfn $APP_ROOT/releases/$RELEASE/build $APP_ROOT/current
+
+          sudo systemctl reload nginx
+          EOF

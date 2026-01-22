@@ -43,12 +43,12 @@ jobs:
         run: |
           scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
             build.tar.gz \
-            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }}:~/
+            ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
 
       - name: Deploy on server
         run: |
           ssh -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
-            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }} << 'EOF'
+            ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
           set -e
 
           APP_ROOT=/opt/racv-ui

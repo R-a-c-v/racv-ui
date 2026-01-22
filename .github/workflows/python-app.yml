@@ -10,7 +10,7 @@ permissions:
 env:
   NODE_VERSION: "20"
   APP_NAME: "racv-ui"
-  APP_ROOT:"/home/redeautocvuser/racv-ui"
+  APP_ROOT: "/home/redeautocvuser/racv-ui"
   VM_USERNAME: redeautocvuser
   VM_IP: 74.235.237.161
 

@@ -4,21 +4,20 @@ on:
   push:
     branches: ["main"]
 
+permissions:
+  contents: read
+
 env:
-  APP_NAME: racv-ui
-  APP_ROOT: /opt/racv-ui
   NODE_VERSION: "20"
-  HEALTH_PATH: "/ping"
-  VM_USERNAME: redeautocvuser
-  VM_IP: 74.235.237.161
+  APP_NAME: "racv-ui"
+  APP_ROOT: "/opt/racv-ui"
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -27,13 +26,14 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build React app
+      - name: Build UI
         run: npm run build
 
-      - name: Package build folder
-        run: tar -czf build.tar.gz dist
+      - name: Package dist
+        run: |
+          tar -czf dist.tar.gz dist
 
       - name: Setup SSH key
         run: |
@@ -43,32 +43,42 @@ jobs:
           EOF
           chmod 600 ~/.ssh/deploy_key.pem
 
-      - name: Upload build to server
+      - name: Upload artifact
         run: |
-          scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no build.tar.gz ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
+          scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
+            dist.tar.gz \
+            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }}:~/
 
-      - name: Deploy on server
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy on server (atomic swap)
         run: |
-          ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
-            set -e
+          ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
+            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }} << 'EOF'
+          set -euo pipefail
 
-            APP_ROOT=/opt/racv-ui
-            RELEASE=$(date +%Y%m%d%H%M%S)
+          APP_ROOT="/opt/racv-ui"
+          RELEASE="$(date +%Y%m%d%H%M%S)"
+          RELEASES_DIR="$APP_ROOT/releases"
+          CURRENT_LINK="$APP_ROOT/current"
 
-            # Cria pastas de releases e shared
-            mkdir -p $APP_ROOT/releases
-            mkdir -p $APP_ROOT/shared
+          mkdir -p "$RELEASES_DIR"
+          cd "$RELEASES_DIR"
 
-            # Move build e extrai
-            mv ~/build.tar.gz $APP_ROOT/releases/$RELEASE.tar.gz
-            cd $APP_ROOT/releases
-            mkdir $RELEASE
-            tar -xzf $RELEASE.tar.gz -C $RELEASE
-            rm $RELEASE.tar.gz
+          mkdir "$RELEASE"
+          tar -xzf ~/dist.tar.gz -C "$RELEASE"
+          rm -f ~/dist.tar.gz
 
-            # Atualiza symlink para o release atual
-            ln -sfn $APP_ROOT/releases/$RELEASE/dist $APP_ROOT/current
+          PREVIOUS="$(readlink -f "$CURRENT_LINK" || true)"
+          ln -sfn "$RELEASES_DIR/$RELEASE/dist" "$CURRENT_LINK"
 
-            # Recarrega Nginx (ou outro web server)
-            sudo systemctl reload nginx
+          sudo systemctl reload nginx || true
+
+          # keep last 5 releases
+          ls -1dt "$RELEASES_DIR"/* | tail -n +6 | xargs -r rm -rf
+
+          echo "UI deploy OK -> $RELEASE"
           EOF

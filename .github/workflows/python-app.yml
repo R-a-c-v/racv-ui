@@ -11,6 +11,8 @@ env:
   NODE_VERSION: "20"
   APP_NAME: "racv-ui"
   APP_ROOT: "/opt/racv-ui"
+  VM_USERNAME: redeautocvuser
+  VM_IP: 74.235.237.161
 
 jobs:
   build:
@@ -47,7 +49,7 @@ jobs:
         run: |
           scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
             dist.tar.gz \
-            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }}:~/
+            ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,7 +59,7 @@ jobs:
       - name: Deploy on server (atomic swap)
         run: |
           ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
-            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }} << 'EOF'
+            ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
           set -euo pipefail
 
           APP_ROOT="/opt/racv-ui"

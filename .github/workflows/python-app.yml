@@ -82,7 +82,7 @@ jobs:
             ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
           set -euo pipefail
 
-          APP_ROOT="/home/redeautocvuser/racv-ui"
+          APP_ROOT="${{ env.APP_ROOT }}"
           RELEASE="$(date +%Y%m%d%H%M%S)"
           RELEASES_DIR="$APP_ROOT/releases"
           CURRENT_LINK="$APP_ROOT/current"
@@ -96,6 +96,22 @@ jobs:
 
           ln -sfn "$RELEASES_DIR/$RELEASE/dist" "$CURRENT_LINK"
 
+          # Configura NGINX dinamicamente
+          NGINX_CONF="/etc/nginx/sites-available/${{ env.APP_NAME }}.conf"
+          sudo bash -c "cat > $NGINX_CONF <<EOL
+          server {
+              listen ${{ env.PORT }};
+              server_name ${{ env.DOMAIN }};
+              root $CURRENT_LINK;
+              index index.html;
+
+              location / {
+                  try_files \$uri /index.html;
+              }
+          }
+          EOL"
+
+          sudo ln -sf "/etc/nginx/sites-available/${{ env.APP_NAME }}.conf" "/etc/nginx/sites-enabled/"
           sudo systemctl reload nginx || true
 
           # Keep last 5 releases

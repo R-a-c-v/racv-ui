@@ -38,8 +38,10 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          printf "%s\n" "${{ secrets.SSH_KEY_001 }}" > ~/.ssh/deploy_key.pem
-          chmod 400 ~/.ssh/deploy_key.pem
+          cat << 'EOF' > ~/.ssh/deploy_key.pem
+          ${{ secrets.SSH_KEY_001 }}
+          EOF
+          chmod 600 ~/.ssh/deploy_key.pem
 
       - name: Upload build to server
         run: |

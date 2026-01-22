@@ -56,6 +56,15 @@ jobs:
     needs: build
 
     steps:
+      # 🔴 ISTO É O QUE FALTAVA
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          cat << 'EOF' > ~/.ssh/deploy_key.pem
+          ${{ secrets.SSH_KEY_001 }}
+          EOF
+          chmod 600 ~/.ssh/deploy_key.pem
+
       - name: Deploy on server (atomic swap)
         run: |
           ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
@@ -74,7 +83,6 @@ jobs:
           tar -xzf ~/dist.tar.gz -C "$RELEASE"
           rm -f ~/dist.tar.gz
 
-          PREVIOUS="$(readlink -f "$CURRENT_LINK" || true)"
           ln -sfn "$RELEASES_DIR/$RELEASE/dist" "$CURRENT_LINK"
 
           sudo systemctl reload nginx || true

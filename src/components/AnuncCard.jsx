@@ -27,3 +27,4 @@ export default function  AnuncCard({ anunciante,nome,ilha,link}) {
   )
 }
 /*xmxm*/
+/*xmxm*/

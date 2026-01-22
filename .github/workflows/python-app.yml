@@ -40,14 +40,14 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          cat << 'EOF' > ~/.ssh/deploy_key.pem
+          cat << 'EOF' > ~/deploy_key.pem
           ${{ secrets.SSH_KEY_001 }}
           EOF
-          chmod 600 ~/.ssh/deploy_key.pem
+          chmod 600 ~/deploy_key.pem
 
       - name: Upload artifact
         run: |
-          scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
+          scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
             dist.tar.gz \
             ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
 
@@ -59,10 +59,8 @@ jobs:
       # 🔴 ISTO É O QUE FALTAVA
       - name: Setup SSH key
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY_001 }}" | base64 -d > ~/.ssh/deploy_key.pem
-          chmod 600 ~/.ssh/deploy_key.pem
-
+          echo "${{ secrets.SSH_KEY_001 }}" > ~/deploy_key.pem
+          chmod 400 ~/deploy_key.pem
       - name: Deploy on server (atomic swap)
         run: |
           ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \

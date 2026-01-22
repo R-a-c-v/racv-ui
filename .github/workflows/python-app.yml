@@ -13,11 +13,12 @@ env:
   VM_IP: 74.235.237.161
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -32,40 +33,40 @@ jobs:
         run: npm run build
 
       - name: Package build folder
-        run: |
-          ls -l
-          tar -czf build.tar.gz dist
+        run: tar -czf build.tar.gz dist
 
       - name: Setup SSH key
         run: |
-            mkdir -p ~/.ssh
-            printf "%s\n" "${{ secrets.SSH_KEY_001 }}" > ~/.ssh/deploy_key.pem
-            chmod 400 ~/.ssh/deploy_key.pem
-      - name: Upload build
+          mkdir -p ~/.ssh
+          printf "%s\n" "${{ secrets.SSH_KEY_001 }}" > ~/.ssh/deploy_key.pem
+          chmod 400 ~/.ssh/deploy_key.pem
+
+      - name: Upload build to server
         run: |
-            scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
-            build.tar.gz \
-            ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
+          scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no build.tar.gz ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
 
       - name: Deploy on server
         run: |
-          ssh -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
-            ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
-          set -e
+          ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no ${{ env.VM_USERNAME }}@${{ env.VM_IP }} << 'EOF'
+            set -e
 
-          APP_ROOT=/opt/racv-ui
-          RELEASE=$(date +%Y%m%d%H%M%S)
+            APP_ROOT=/opt/racv-ui
+            RELEASE=$(date +%Y%m%d%H%M%S)
 
-          mkdir -p $APP_ROOT/releases
-          mkdir -p $APP_ROOT/shared
+            # Cria pastas de releases e shared
+            mkdir -p $APP_ROOT/releases
+            mkdir -p $APP_ROOT/shared
 
-          mv ~/build.tar.gz $APP_ROOT/releases/$RELEASE.tar.gz
-          cd $APP_ROOT/releases
-          mkdir $RELEASE
-          tar -xzf $RELEASE.tar.gz -C $RELEASE
-          rm $RELEASE.tar.gz
+            # Move build e extrai
+            mv ~/build.tar.gz $APP_ROOT/releases/$RELEASE.tar.gz
+            cd $APP_ROOT/releases
+            mkdir $RELEASE
+            tar -xzf $RELEASE.tar.gz -C $RELEASE
+            rm $RELEASE.tar.gz
 
-          ln -sfn $APP_ROOT/releases/$RELEASE/build $APP_ROOT/current
+            # Atualiza symlink para o release atual
+            ln -sfn $APP_ROOT/releases/$RELEASE/dist $APP_ROOT/current
 
-          sudo systemctl reload nginx
+            # Recarrega Nginx (ou outro web server)
+            sudo systemctl reload nginx
           EOF

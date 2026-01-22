@@ -47,9 +47,9 @@ jobs:
 
       - name: Upload artifact
         run: |
-          scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
+            scp -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
             dist.tar.gz \
-            ${{ env.VM_USERNAME }}@${{ env.VM_IP }}:~/
+            redeautocvuser@74.235.237.161:~/
 
   deploy:
     runs-on: ubuntu-latest

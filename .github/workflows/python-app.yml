@@ -45,12 +45,11 @@ jobs:
           EOF
           chmod 600 ~/deploy_key.pem
 
-      - name: Upload artifact
+      - name: Upload release bundle
         run: |
-            scp -i ~/deploy_key.pem -o StrictHostKeyChecking=no \
-            dist.tar.gz \
-            redeautocvuser@74.235.237.161:~/
-
+          scp -o StrictHostKeyChecking=no -i ~/deploy_key.pem \
+            "${{ env.RELEASE_NAME }}.tar.gz" \
+            ${{ vars.VM_USERNAME }}@${{ vars.VM_IP }}:~/
   deploy:
     runs-on: ubuntu-latest
     needs: build

@@ -22,7 +22,7 @@ export default function HomeContentUser(props) {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:5002/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`
+        `http://localhost:5001/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`
       );
       const json = await res.json();
       navigate("/pesquisa", { state: json });

@@ -31,7 +31,7 @@ export default function  HomeHead(props) {
       {
        // e.preventDefault(); // evita reload da página
         try {
-            const res = await fetch(`http://localhost:5002/pesquisa_principal_inicio?veiculo=${""}&locais=${""}`);
+            const res = await fetch(`http://localhost:5001/pesquisa_principal_inicio?veiculo=${""}&locais=${""}`);
             const json = await res.json(); // pega os dados
             console.log("ddd",json)
             url("/pesquisa", { state: json }); // passa diretamente o json para a rota

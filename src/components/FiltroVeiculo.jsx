@@ -65,7 +65,7 @@ useEffect(() => {
       try {
         let ilha = local
        
-        const rest = await fetch(`http://localhost:5002/filtragem?local=${ilha}&automatico=${transmissaoAutomatico}&manual=${transmissaoManual}&passageiro_um=${numeroPassageiroUm}&passageiro_quatro=${numeroPassageiroQuatro}&ar_condicionado=${arCondicionado}&preco_min=${precoMin}&preco_max=${precoMax}&euros=${euros}`);
+        const rest = await fetch(`http://localhost:5001/filtragem?local=${ilha}&automatico=${transmissaoAutomatico}&manual=${transmissaoManual}&passageiro_um=${numeroPassageiroUm}&passageiro_quatro=${numeroPassageiroQuatro}&ar_condicionado=${arCondicionado}&preco_min=${precoMin}&preco_max=${precoMax}&euros=${euros}`);
         const json = await rest.json();
         setResultado(json.localizacao.length);
         
@@ -149,7 +149,7 @@ function RequestServidorCambio(){
     //{
       e.preventDefault();
       try {
-        const res = await fetch(`http://localhost:5002/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${local}`);
+        const res = await fetch(`http://localhost:5001/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${local}`);
         const json = await res.json();
         setResultado(json.localizacao.length);
         navigate("/pesquisa", { state: json }); 
@@ -161,7 +161,7 @@ function RequestServidorCambio(){
   async function RequestAnunciantes(e) {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/pesquisa_filtragem_inicio?ilha=${local}`);
+      const res = await fetch(`http://localhost:5006/pesquisa_filtragem_inicio?ilha=${local}`);
       const json = await res.json();
       navigate("/anunciante", {state : json})
       setResultado(json.length)

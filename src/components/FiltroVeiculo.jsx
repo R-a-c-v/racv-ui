@@ -280,9 +280,9 @@ return (
           <div className='f'>
             <label className='text-titulo'>Transmissão</label>
             <hr /><br />
-            <label className='checkbox-btn'>Manual</label>
+            <label className='checkbox-btn'>Manual </label>
             <input type='checkbox' checked={transmissaoManual} onChange={(e) => setTransmissaoManual(e.target.checked)} /><br />
-            <label className='checkbox-btn'>Automático</label>
+            <label className='checkbox-btn'>Automático </label>
             <input type='checkbox' checked={transmissaoAutomatico} onChange={(e) => setTransmissaoAutomatico(e.target.checked)} />
           </div>
           <br/>
@@ -301,8 +301,8 @@ return (
           {/* GPS */}
           <div className='f'>
             <label className='text-titulo'>Ar Condicionado</label>
-            <hr /><br />
-            <label className='checkbox-btn'>Sim</label>
+            <hr /><br />  
+            <label className='checkbox-btn'>Sim </label>
             <input type='checkbox' checked={arCondicionado} onChange={(e) => setArcondicionado(e.target.checked)} /><br />
           </div>
           <br />
@@ -323,7 +323,7 @@ return (
 
           </div>
 
-        </div>
+        </div>  
       </div>
 
       {/* Formulário de pesquisa */}

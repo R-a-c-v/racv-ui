@@ -11,6 +11,7 @@ export default function CarList({ dado }) {
   const localizacao = state?.localizacao || [];
 
   // verificar se props.dado é um array válido
+  // verificar se props.dado é um array válido
   const hasDado =   Array.isArray(dado) ;
   if (hasDado) {
     return (

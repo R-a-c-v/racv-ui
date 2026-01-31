@@ -69,15 +69,14 @@ export default function  HomeHead(props) {
           'fitro-head': 
           'bodirazoes-opacidade' 
         }>
-            <button onClick={home} className='rac-btn'><img  src={logo} alt="RACV Logo" onClick={home} style={{ width: "170px", height: "50px" }}/></button>
+            <button onClick={home} className='rac-btn'><img  src={logo} alt="RACV Logo" onClick={home} style={{ width: "170px", height: "50px", marginLeft:"50px", marginTop:"8px" }}/></button>
                         { sessaoUser?
             <li> <button className='login_btn' type='submit' onClick={sair}>Sair</button></li>
             :x
             }
             <li> Por rmfortes@uta.cv</li>
             <li> Missão</li>
-            <li><button className='registar_btn'onClick={requestRegistar}> {sessaoUser? anuncios: Login }</button></li>
-            <li> <button className='login_btn' type='submit' onClick={requestLogin}>{sessaoUser? notificacao : regstiro }</button> </li>
+
         </ul>   
      </nav>
   )

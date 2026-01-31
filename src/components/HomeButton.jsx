@@ -53,7 +53,7 @@ export default function missao () {
                      <br/>
                      Trabalhamos apenas com rent-a-cars pequenas, independentes e até familiares, para apoiar a economia local em Cabo Verde.
                    </div>
-                   <br/><br/><hr/>
+                   <br/><br/><hr className='linhahr'/>
                 </div>
   )
 }

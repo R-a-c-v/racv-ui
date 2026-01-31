@@ -27,19 +27,18 @@ export function HomeContent(props) {
   const [dados, setDados] = useState([]);
   const [pesquisa, setPesquisa] = useState([]);
   const lista = []
-async function RequestServidor(e) {
+  async function RequestServidor(e) {
    e.preventDefault(); // evita reload da página
    try {
       const res = await fetch(`http://localhost:5001/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`);
       const json = await res.json(); // pega os dados
-      console.log("ddd",json)
       navigate("/pesquisa", { state: json }); // passa diretamente o json para a rota
    } catch (error) {
      console.log(error)
-  }   
-}
+   }   
+  }
 
-return (
+  return (
     
     <div className={props.estado?'bodirazoes':''}>
       <div className={
@@ -63,7 +62,7 @@ return (
                 name='locais'
                 onChange={(e) => setLocais(e.target.value)}
               >
-              <option value="" disabled>Escolha lha</option>
+              <option value="" disabled>Escolha a Ilha</option>
               <option value="Santo Antão">Santo Antão</option>
               <option value="São Vicente">São Vicente</option>
               <option value="São Nicolau">São Nicolau</option>
@@ -105,7 +104,7 @@ return (
                 Todas as ilhas cobertas
                 </p> 
                 <br/>
-                 Compara preços e carros de empresas locais em todas as ilhas. verifica o teu carro em apenas alguns cliques para aluguer
+                 Preços e carros de empresas locais em todas as ilhas. Verifica o teu carro em apenas alguns cliques para aluguer
                </div>
 
                <div className='quadro_conteudo_dir'>
@@ -114,26 +113,9 @@ return (
                        Apoia os negócios locais
                  </p>
                  <br/>
-                 Trabalhamos apenas com rent-a-cars pequenas, independentes e até familiares, para apoiar a economia local em Cabo Verde.
-               </div>
-              <div className='quadro_conteudo_esq'> 
-                <p className='font-racv'>
-                  <img className='logo-lupa' src={empresa} alt="RACV Logo"  />
-                Todas as ilhas cobertas
-                </p> 
-                <br/>
-                 Compara preços e carros de empresas locais em todas as ilhas. verifica o teu carro em apenas alguns cliques para aluguer
+                 Rent-a-cars pequenas, grandes, independentes e até familiares, para apoiar a economia local em Cabo Verde.
                </div>
 
- 
-               <div className='quadro_conteudo_dir'>
-                  <p className='font-racv'> 
-                      <img className='logo-lupa' src={lupa} alt="RACV Logo"  />
-                       Apoia os negócios locais
-                 </p>
-                 <br/>
-                 Trabalhamos apenas com rent-a-cars pequenas, independentes e até familiares, para apoiar a economia local em Cabo Verde.
-               </div>
                <br/><br/><hr/>
             </div>
    </div>

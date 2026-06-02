@@ -12,6 +12,8 @@ export default function CarList({ dado }) {
 
   // verificar se props.dado é um array válido
   // verificar se props.dado é um array válido
+  // verificar se props.dado é um array válido
+  // verificar se props.dado é um array válido
   const hasDado =   Array.isArray(dado) ;
   if (hasDado) {
     return (

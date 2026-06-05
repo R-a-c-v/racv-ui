@@ -34,7 +34,7 @@
     async function RequestServidor(e) {
     e.preventDefault(); // evita reload da página
       try {
-          const res = await fetch(`http://${VITE_ANUNCIANTE_API}/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`);
+          const res = await fetch(`http://${ANUNCIANTE_API}/pesquisa_principal_inicio?veiculo=${veiculo}&locais=${locais}`);
           const json = await res.json(); // pega os dados
           navigate("/pesquisa", { state: json }); // passa diretamente o json para a rota
       } catch (error) {

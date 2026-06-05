@@ -33,7 +33,6 @@ const [checkarLog, setCheckarLog] = useState("");
 const [messagem, setMessagem] = useState("");
 
 const [tipo, setTipo] = useState("");
-
 useEffect(() => {
     if (location.pathname === "/registrar") 
     {

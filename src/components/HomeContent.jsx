@@ -52,7 +52,7 @@
         'bodi-main':
         ''
       }>
-              <p  className='titulo'>   O Portal rent a car de cabo verde</p >
+              <p  className='titulo'>   O Portal rent a cagr de cabo verde</p >
                 < img className='logoracvpesq'  src={logo} alt="RACV Logo"/>
                 <br/>
                 <label htmlFor="" className='levant_titulo' >Local de levantamento</label><br/>

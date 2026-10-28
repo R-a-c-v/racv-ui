@@ -166,7 +166,7 @@ function RequestServidorCambio(){
   async function RequestAnunciantes(e) {
     e.preventDefault();
     try {
-      const res = await fetch(`${ANUNCIANTE_API}/pesquisa_filtragem_inicio?ilha=${local}`);
+      const res = await fetch(`${ANUNCIANTES_API}/pesquisa_filtragem_inicio?ilha=${local}`);
       const json = await res.json();
       navigate("/anunciante", {state : json})
       setResultado(json.length)

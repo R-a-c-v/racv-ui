@@ -15,7 +15,10 @@ export default function  HomeHead(props) {
   const notificacao = "Notificações";
   const regstiro = "Regstiro";
   const x = "";
-
+  const COLECTOR_API = import.meta.env.VITE_COLECTOR_API;
+  const ANUNCIANTE_API = import.meta.env.VITE_ANUNCIANTE_API;
+  const ANUNCIANTES_API = import.meta.env.VITE_ANUNCIANTES_API;
+     
 
   const url = useNavigate();
 
@@ -31,7 +34,7 @@ export default function  HomeHead(props) {
       {
        // e.preventDefault(); // evita reload da página
         try {
-            const res = await fetch(`http://localhost:5001/pesquisa_principal_inicio?veiculo=${""}&locais=${""}`);
+            const res = await fetch(`${ANUNCIANTE_API}/pesquisa_principal_inicio?veiculo=${""}&locais=${""}`);
             const json = await res.json(); // pega os dados
             console.log("ddd",json)
             url("/pesquisa", { state: json }); // passa diretamente o json para a rota
